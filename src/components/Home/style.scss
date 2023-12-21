@@ -1,0 +1,77 @@
+.list-posts {
+  list-style: none;
+  & h2 {
+    margin-top: 1rem;
+    font-size: 20px;
+  }
+  & p {
+    color: #999;
+    margin-top: 0.7rem;
+  }
+  & li > div {
+    margin-top: 0.7rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    & div {
+      display: flex;
+      align-items: center;
+      & img {
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+      }
+      & h4 {
+        color: #999;
+        margin-left: 12px;
+      }
+    }
+  }
+}
+.hi {
+  background-color: red;
+}
+.dflex {
+  display: flex;
+  align-items: center;
+}
+.jbetween {
+  justify-content: space-between;
+}
+.input-item {
+  padding: 1rem;
+  & label {
+    font-size: 17px;
+    text-align: left;
+    display: block;
+  }
+  & input,
+  textarea {
+    width: 100%;
+    font-size: 15px;
+    outline: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    border-color: #ccc;
+    margin-top: 1rem;
+  }
+}
+.create-btn {
+  margin: 1rem auto;
+  border: 2px solid #fff;
+  padding: 0.4rem 1.5rem;
+  border-radius: 4px;
+  transition: 0.2s all;
+  cursor: pointer;
+}
+.create-btn:hover,
+.create-btn:disabled {
+  color: #fff;
+  background-color: transparent;
+}
+.create-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
