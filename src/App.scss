@@ -1,0 +1,31 @@
+@font-face {
+  font-family: "myFont";
+  src: url(./assets/TitilliumWeb-Regular.ttf);
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-weight: normal;
+  font-family: "myFont";
+}
+body {
+  background-color: #222f3e;
+  color: #fff;
+  font-size: 15px;
+}
+a {
+  color: #fff;
+  text-decoration: none;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  visibility: hidden;
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  width: 4px;
+  background: #777;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #999 !important;
+}
