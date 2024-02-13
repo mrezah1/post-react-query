@@ -1,5 +1,5 @@
 import React from "react";
-import { Field, useForm, useWatch } from "rc-field-form";
+import { Field } from "rc-field-form";
 
 interface InputProps {
   label: string;
@@ -29,7 +29,6 @@ const MyInput: React.FC<InputProps> = ({
         ...validations,
       ]}
     >
-      {console.log(validations)}
       <div className="input-item">
         <label htmlFor={name}>{label}</label>
         {isArea ? (

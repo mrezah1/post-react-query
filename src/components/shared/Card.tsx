@@ -1,10 +1,9 @@
+import React, { useState, ReactNode } from "react";
 import styled from "styled-components";
 
 interface CardProps {
   w?: number;
-}
-interface WrapperProps {
-  justify?: string;
+  dragging?: boolean;
 }
 const Card = styled.div`
   height: 100%;
@@ -16,7 +15,12 @@ const Card = styled.div`
   border-radius: 15%;
   box-shadow: 9.91px 9.91px 15px #1f2b38, -9.91px -9.91px 15px #253344;
   border-radius: 10px;
+  ${(props: CardProps) => props.dragging && `border: 2px dashed #c0c0c0`}
 `;
+
+interface WrapperProps {
+  justify?: string;
+}
 const Wrapper = styled.div`
   display: flex;
   flex: 1;
@@ -26,8 +30,58 @@ const Wrapper = styled.div`
   padding: 2rem 1rem;
 `;
 
-export const withCustomProps = (WrapperComponent) => (props) =>
-  <WrapperComponent {...props} />;
+interface DragCardProps {
+  align?: "left" | "right" | "center";
+  children: ReactNode;
+  onDrop?: () => void;
+}
 
-export default withCustomProps(Card);
-export { Wrapper };
+const DragCard: React.FC<DragCardProps> = ({
+  children,
+  align = "left",
+  onDrop,
+  ...rest
+}) => {
+  const [isDroping, setIsDroping] = useState(false);
+  return (
+    <Card
+      onDragOver={(event) => event.preventDefault()}
+      onDragEnter={() => setIsDroping(true)}
+      onDragStart={(event: React.MouseEventHandler) => {
+        setIsDroping(true);
+        event.dataTransfer.setData("id", event.target.id);
+      }}
+      onDrop={(event) => {
+        // solution 1 :
+        onDrop(event);
+        setIsDroping(false);
+
+        // solution 2 :
+        // const dragId = event.dataTransfer.getData("id");
+        // const dragElement = document.getElementById(dragId);
+        // const dragOrder = dragElement?.style.order;
+        // if (dragElement) {
+        //   dragElement.style.order = event.target.style.order;
+        //   event.target.style.order = dragOrder;
+        // }
+      }}
+      onDragEnd={() => setIsDroping(false)}
+      onDragLeave={() => setIsDroping(false)}
+      draggable="true"
+      dragging={isDroping}
+      {...rest}
+    >
+      <div
+        style={{
+          textAlign: align,
+          pointerEvents: isDroping ? "none" : "auto",
+        }}
+      >
+        {children}
+      </div>
+    </Card>
+  );
+};
+
+export default DragCard;
+export { Wrapper, Card };
