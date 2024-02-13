@@ -2,15 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Card from "../shared/Card";
+import { SectionCardProps } from "src/types";
 import { useSinglePost } from "src/hooks";
 import SkeletonLoading from "./skeleton/Post";
 
-const Post: React.FC = () => {
+const Post: React.FC<SectionCardProps> = ({ order, onDrop }) => {
+  console.log("Post Trigger");
   const { id } = useParams();
   const { data, isLoading } = useSinglePost({ id });
   const [post] = data || [];
   return (
-    <Card w={45} className="custom-scrollbar">
+    <Card
+      className="custom-scrollbar"
+      style={{ order }}
+      id="post"
+      onDrop={onDrop}
+    >
       {isLoading ? (
         <SkeletonLoading />
       ) : (

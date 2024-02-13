@@ -1,13 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { SectionCardProps } from "src/types";
+import toast from "react-hot-toast";
+
 import Card from "../shared/Card";
 import { useAllPosts } from "src/hooks";
 import SkeletonLoading from "./skeleton/List";
 
-const List: React.FC = (props) => {
+const List: React.FC<SectionCardProps> = ({ order, onDrop }) => {
+  console.log("List Trigger");
   const { data, isLoading } = useAllPosts();
+
   return (
-    <Card className="custom-scrollbar">
+    <Card
+      className="custom-scrollbar"
+      style={{ order }}
+      id="list"
+      onDrop={onDrop}
+    >
       {isLoading ? (
         <SkeletonLoading />
       ) : (
