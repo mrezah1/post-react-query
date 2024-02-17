@@ -1,28 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { SectionCardProps } from "src/types";
-import toast from "react-hot-toast";
+import { CardEnum, SectionCardProps, PostType } from "src/types";
 
-import Card from "../shared/Card";
+import { Card } from "../shared/Card";
 import { useAllPosts } from "src/hooks";
 import SkeletonLoading from "./skeleton/List";
 
 const List: React.FC<SectionCardProps> = ({ order, onDrop }) => {
-  console.log("List Trigger");
   const { data, isLoading } = useAllPosts();
 
   return (
     <Card
       className="custom-scrollbar"
       style={{ order }}
-      id="list"
+      id={CardEnum.list}
       onDrop={onDrop}
     >
       {isLoading ? (
         <SkeletonLoading />
       ) : (
         <ul className="list-posts">
-          {data.map((i) => (
+          {data.map((i: PostType) => (
             <li key={i._id}>
               <h2>
                 <Link to={`/posts/${i._id}`} state={{ test: "A" }}>

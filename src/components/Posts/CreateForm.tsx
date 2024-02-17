@@ -3,10 +3,11 @@ import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
 import Input from "src/components/shared/Input";
 import { createPost } from "src/api";
+import { PostType } from "src/types";
 
 const CreateForm = () => {
   const queryClient = useQueryClient();
-  const onFinish = async (values) => {
+  const onFinish = async (values: PostType) => {
     const waiting = toast.loading("please wait...");
     const res = await createPost(values);
     if (res.ok) {
@@ -17,10 +18,10 @@ const CreateForm = () => {
     }
   };
   return (
-    <Form onFinish={onFinish} onFinishFailed={(a) => console.log("Err")}>
-      {(values, form) => {
+    <Form onFinish={onFinish} onFinishFailed={() => console.log("Err")}>
+      {(_, form) => {
         const errors = form.getFieldsError();
-        const getErr = (name) => {
+        const getErr = (name: string) => {
           const err = errors.find((i) => i?.name[0] === name);
           return err ? err.errors[0] : "";
         };
