@@ -6,24 +6,29 @@ import { Outlet } from "react-router-dom";
 import { useLocation, useParams } from "react-router-dom";
 const Post = React.lazy(() => import("../Posts/Post"));
 import "./style.scss";
+import { CardStateType } from "src/types";
 
 const Home = () => {
   const { state } = useLocation();
   const { id } = useParams();
-  const [order, setOrder] = useState({
+  const [order, setOrder] = useState<CardStateType>({
     list: 1,
     post: 2,
     create: 3,
   });
-  const dispatchOrder = useCallback((event) => {
-    const type = event.dataTransfer.getData("id");
-    setOrder((prev) => ({
-      ...prev,
-      [type]: prev[event.target.id],
-      [event.target.id]: prev[type],
-    }));
-    toast.success("Drag and Drop Done");
-  }, []);
+  const dispatchOrder = useCallback(
+    (event: React.DragEvent<HTMLDivElement>): void => {
+      const type = event.dataTransfer.getData("id");
+      const id = (event.target as HTMLDivElement).id;
+      setOrder((prev: CardStateType) => ({
+        ...prev,
+        [type]: prev[id as keyof typeof prev],
+        [id]: prev[type as keyof typeof prev],
+      }));
+      toast.success("Drag and Drop Done");
+    },
+    []
+  );
 
   if (!state && id) return <Outlet />;
   return (

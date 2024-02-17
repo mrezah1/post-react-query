@@ -19,16 +19,16 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-        <Wrapper>
-          <Router>
-            <Routes>
-              <Route path="/" element={<Home />}>
-                <Route path="/posts/:id" element={<Post />} />
-              </Route>
-            </Routes>
-          </Router>
-          <Toaster position="bottom-right" />
-        </Wrapper>
+      <Wrapper>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />}>
+              <Route path="/posts/:id" element={<Post />} />
+            </Route>
+          </Routes>
+        </Router>
+        <Toaster position="bottom-right" />
+      </Wrapper>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
