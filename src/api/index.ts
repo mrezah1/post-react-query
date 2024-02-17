@@ -1,10 +1,5 @@
 import axios from "axios";
-
-type PostType = {
-  title: string;
-  body: string;
-  author: string;
-};
+import { PostType } from "src/types";
 
 const client = axios.create({
   baseURL:

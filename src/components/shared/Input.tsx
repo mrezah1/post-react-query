@@ -1,7 +1,8 @@
-import React from "react";
+import React, { AllHTMLAttributes } from "react";
 import { Field } from "rc-field-form";
 
-interface InputProps {
+// interface FieldAttribute extends InputHTMLAttributes<HTMLInputElement>,TextareaHTMLAttributes<HTMLTextAreaElement>;
+interface InputProps extends AllHTMLAttributes<HTMLElement> {
   label: string;
   name: string;
   type?: string;
@@ -36,7 +37,7 @@ const MyInput: React.FC<InputProps> = ({
             id={name}
             {...rest}
             {...(err ? { style: { borderColor: "#f84f4f" } } : {})}
-          ></textarea>
+          />
         ) : (
           <input
             {...(err ? { style: { borderColor: "#f84f4f" } } : {})}
